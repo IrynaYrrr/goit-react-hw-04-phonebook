@@ -1,0 +1,46 @@
+.form {
+  height: 20vh;
+  width: 95%;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgb(110, 0, 110);
+  padding: 30px;
+  margin: 0 auto;
+}
+
+.formDiv {
+  display: flex;
+  gap: 50px;
+}
+
+.inputName, .inputNumber {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid orange;
+  border-radius: 4px;
+}
+
+.buttonAdd {
+  background-color: #c568ff;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.label {
+  font-size: 20px;
+  font-weight: 500;
+}

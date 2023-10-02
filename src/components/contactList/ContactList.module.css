@@ -1,0 +1,26 @@
+.contactItem {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  font-size: 20px;
+  align-items: center;
+}
+
+.btnDelete {
+  background-color: #ff0000;
+  border: none;
+  color: white;
+  padding: 3px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 3px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.contactsWrap {
+  margin-left: 20%;
+  margin-right: 20%;
+}

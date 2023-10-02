@@ -1,0 +1,14 @@
+.label {
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 20%;
+}
+
+.inputFind {
+  width: 30%;
+  padding: 12px 20px;
+  margin: 8px 16px;
+  box-sizing: border-box;
+  border: 2px solid orange;
+  border-radius: 4px;
+}
