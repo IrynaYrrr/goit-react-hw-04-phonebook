@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { nanoid } from "nanoid";
 import { ContactForm } from './contactForm/ContactForm';
 import { Filter } from './filter/Filter';
@@ -13,15 +13,13 @@ const headersStyles = {
   textAlign: 'center',
 };
 
-export class App extends Component {
+export const App = () => {
 
-  state = {
-    contacts: [],
-    filter: ''
-  }
+const [contacts, setContacts] = useState([]);
+const [filter, setFilter] = useState('');
 
-  handleSubmitForm = (contact) => {
-    if (this.state.contacts.find(
+  const handleSubmitForm = (contact) => {
+    if (contacts.find(
       (item) => item.name.toLowerCase() === contact.name.toLowerCase()
     )) {
       alert(`${contact.name} is already in contacts`);
@@ -33,45 +31,101 @@ export class App extends Component {
       id: nanoid(),
     }
 
-    this.setState((prev) => ({
-      contacts: [newContact, ...prev.contacts],
-    }))
+    setContacts([newContact, ...contacts])
   }
 
-  handleFilterChange = (value) => {
-    this.setState(() => ({
-      filter: value,
-    }))
+  const handleFilterChange = (value) => {
+    setFilter(value)
   }
 
-  handleDelete = (id) => {
-    this.setState((prev) => ({
-      contacts: prev.contacts.filter((contact) => contact.id !== id),
-    }))
+  const handleDelete = (id) => {
+    setContacts(contacts.filter((contact) => contact.id !== id))
   }
 
-  getFilteredContacts = () => {
-    return this.state.contacts.filter((el) =>
-      el.name.toLowerCase().includes(this.state.filter.toLowerCase())
+  const getFilteredContacts = () => {
+    return contacts.filter((el) =>
+      el.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
-  render() {
-    const filtered = this.getFilteredContacts();
-    return (
-      <div>
-        <h1 style={headersStyles}>Phonebook</h1>
-        <ContactForm onSubmit={this.handleSubmitForm} />
-        <h2 style={headersStyles}>Contacts</h2>
-        <Filter
-          onChange={this.handleFilterChange}
-        />
-        <ContactList
-          contacts={filtered}
-          filter={this.state.filter}
-          handleDelete={this.handleDelete}
-        />
-      </div>
-    )
-  }
+  const filtered = getFilteredContacts();
+  return (
+    <div>
+      <h1 style={headersStyles}>Phonebook</h1>
+      <ContactForm onSubmit={handleSubmitForm} />
+      <h2 style={headersStyles}>Contacts</h2>
+      <Filter
+        onChange={handleFilterChange}
+      />
+      <ContactList
+        contacts={filtered}
+        filter={filter}
+        handleDelete={handleDelete}
+      />
+    </div>
+  )
 }
+
+
+// export class App extends Component {
+
+//   state = {
+//     contacts: [],
+//     filter: ''
+//   }
+
+//   handleSubmitForm = (contact) => {
+//     if (this.state.contacts.find(
+//       (item) => item.name.toLowerCase() === contact.name.toLowerCase()
+//     )) {
+//       alert(`${contact.name} is already in contacts`);
+//       return;
+//     }
+
+//     const newContact = {
+//       ...contact,
+//       id: nanoid(),
+//     }
+
+//     this.setState((prev) => ({
+//       contacts: [newContact, ...prev.contacts],
+//     }))
+//   }
+
+//   handleFilterChange = (value) => {
+//     this.setState(() => ({
+//       filter: value,
+//     }))
+//   }
+
+//   handleDelete = (id) => {
+//     this.setState((prev) => ({
+//       contacts: prev.contacts.filter((contact) => contact.id !== id),
+//     }))
+//   }
+
+//   getFilteredContacts = () => {
+//     return this.state.contacts.filter((el) =>
+//       el.name.toLowerCase().includes(this.state.filter.toLowerCase())
+//     );
+//   };
+
+//   render() {
+//     const filtered = this.getFilteredContacts();
+//     return (
+//       <div>
+//         <h1 style={headersStyles}>Phonebook</h1>
+//         <ContactForm onSubmit={this.handleSubmitForm} />
+//         <h2 style={headersStyles}>Contacts</h2>
+//         <Filter
+//           onChange={this.handleFilterChange}
+//         />
+//         <ContactList
+//           contacts={filtered}
+//           filter={this.state.filter}
+//           handleDelete={this.handleDelete}
+//         />
+//       </div>
+//     )
+//   }
+// }
