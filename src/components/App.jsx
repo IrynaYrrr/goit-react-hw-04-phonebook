@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import { ContactForm } from './contactForm/ContactForm';
 import { Filter } from './filter/Filter';
@@ -15,8 +15,12 @@ const headersStyles = {
 
 export const App = () => {
 
-const [contacts, setContacts] = useState([]);
-const [filter, setFilter] = useState('');
+  const [contacts, setContacts] = useState(() => JSON.parse(localStorage.getItem('contacts')) ?? []);
+  const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts))
+  }, [contacts]);
 
   const handleSubmitForm = (contact) => {
     if (contacts.find(
@@ -31,7 +35,7 @@ const [filter, setFilter] = useState('');
       id: nanoid(),
     }
 
-    setContacts([newContact, ...contacts])
+    setContacts((prev) => [newContact, ...prev])
   }
 
   const handleFilterChange = (value) => {
@@ -39,7 +43,8 @@ const [filter, setFilter] = useState('');
   }
 
   const handleDelete = (id) => {
-    setContacts(contacts.filter((contact) => contact.id !== id))
+    setContacts((prev) => prev.filter((contact) => contact.id !== id)
+    )
   }
 
   const getFilteredContacts = () => {
@@ -59,7 +64,6 @@ const [filter, setFilter] = useState('');
       />
       <ContactList
         contacts={filtered}
-        filter={filter}
         handleDelete={handleDelete}
       />
     </div>
